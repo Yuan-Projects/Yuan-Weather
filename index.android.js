@@ -22,18 +22,14 @@ class YuanWeather extends Component {
     console.log('Movie:', movie);
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text>{movie.title}</Text>
-        <Text>{movie.year}</Text>
-        <Image style={styles.thumbnail} source={{uri: movie.posters.thumbnail}} />
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Shake or press menu button for dev menu
-        </Text>
+        <Image 
+          style={styles.thumbnail} 
+          source={{uri: movie.posters.thumbnail}} 
+        />
+        <View style={styles.rightContainer}>
+          <Text style={styles.title}>{movie.title}</Text>
+          <Text style={styles.year}>{movie.year}</Text>
+        </View>
       </View>
     );
   }
@@ -41,24 +37,35 @@ class YuanWeather extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    webkitBoxFlex: 1,
+    webkitFlex: 1,
     flex: 1,
+    
+    webkitBoxDirection: 'row',
+    webkitBoxOrient: 'horizontal',
+    webkitFlexDirection: 'row',
+    flexDirection: 'row',
+    
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
   thumbnail: {
-    width: 200,
-    height: 200,
+    width: 53,
+    height: 81,
+  },
+  rightContainer: {
+    webkitBoxFlex: 1,
+    webkitFlex: 1,
+    flex: 1,
+  },
+  title: {
+    fontSize: 20,
+    marginBottom: 8,
+    textAlign: 'center'
+  },
+  year: {
+    textAlign: 'center'
   },
 });
 
