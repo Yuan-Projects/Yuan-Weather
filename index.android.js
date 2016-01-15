@@ -15,10 +15,6 @@ import React, {
 
 var REQUEST_URL = 'https://rawgit.com/facebook/react-native/master/docs/MoviesExample.json';
 
-var MOCKED_MOVIES_DATA = [
-  {title: 'Title', year: '2015', posters: {thumbnail: 'http://i.imgur.com/UePbdph.jpg'}},
-];
-
 class YuanWeather extends Component {
   constructor(props) {
     super(props);
