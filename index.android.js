@@ -12,14 +12,54 @@ import React, {
   View
 } from 'react-native';
 
+var REQUEST_URL = 'https://rawgit.com/facebook/react-native/master/docs/MoviesExample.json';
+
 var MOCKED_MOVIES_DATA = [
   {title: 'Title', year: '2015', posters: {thumbnail: 'http://i.imgur.com/UePbdph.jpg'}},
 ];
 
 class YuanWeather extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      movies: null
+    };
+  }
+  
+  componentDidMount() {
+    this.fetchData();
+  }
+  
+  fetchData() {
+    fetch(REQUEST_URL)
+      .then((response) => response.json())
+      .then((responseData) => {
+        this.setState({
+          movies: responseData.movies,
+        });
+      })
+      .done();
+  }
+  
   render() {
-    var movie = MOCKED_MOVIES_DATA[0];
-    console.log('Movie:', movie);
+    if (!this.state.movies) {
+      return this.renderLoadingView();
+    }
+    var movie = this.state.movies[0];
+    return this.renderMovie(movie);
+  }
+  
+  renderLoadingView() {
+    return (
+      <View style={styles.container}>
+        <Text>
+          Loading movies...
+        </Text>
+      </View>
+    );
+  }
+  
+  renderMovie(movie) {
     return (
       <View style={styles.container}>
         <Image 
@@ -37,15 +77,8 @@ class YuanWeather extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    webkitBoxFlex: 1,
-    webkitFlex: 1,
     flex: 1,
-    
-    webkitBoxDirection: 'row',
-    webkitBoxOrient: 'horizontal',
-    webkitFlexDirection: 'row',
     flexDirection: 'row',
-    
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
@@ -55,8 +88,6 @@ const styles = StyleSheet.create({
     height: 81,
   },
   rightContainer: {
-    webkitBoxFlex: 1,
-    webkitFlex: 1,
     flex: 1,
   },
   title: {
