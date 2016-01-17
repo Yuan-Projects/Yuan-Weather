@@ -13,7 +13,7 @@ import React, {
   View
 } from 'react-native';
 
-let dataProvider = require('./js/dataProvider.js');
+let dataProvider = require('./js/dataProvider/dataProvider.js');
 
 class YuanWeather extends Component {
   constructor(props) {
