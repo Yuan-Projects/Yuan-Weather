@@ -14,6 +14,53 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
-module.exports = {
-  formatTime: formatTime
-}
+const ajax = options => {
+  return wx.request(options);
+};
+
+const getLevel = aqi => {
+  return aqi > 200 ? 'level_5' : aqi > 150 ? 'level_4' : aqi > 100 ? 'level_3' : aqi > 50 ? 'level_2' : 'level_1';
+};
+
+const getWeek = day => {
+  return ['周日', '周一', '周二', '周三', '周四', '周五', '周六'][day];
+};
+
+const urlArgs = () => {
+  const args = new Map();
+  const pairs = location.search.substring(1).split("&");
+  for (const entry of pairs) {
+    const params = entry.split('=');
+    if (params.length === 2 && params[0] && params[1]) {
+      const [key, value] = params;
+      args.set(decodeURIComponent(key), decodeURIComponent(value));
+    }
+  }
+  return args;
+};
+
+const getUrlArg = (name) => {
+  return urlArgs().get(name);
+};
+
+const normalizeLocation = (state, city) => {
+  if (!state) return city;
+  if (state === city) return state;
+  return state + city;
+};
+
+const normalizeDailyDate = (date) => {
+  if (isNaN(date.weekday)) return date.weekday;
+  return `${getWeek(date.weekday)} ${date.month}-${date.day > 9 ? date.day : "0" + date.day}`;
+};
+
+export {
+  ajax,
+  formatTime,
+  getLevel,
+  getUrlArg,
+  getWeek,
+  normalizeDailyDate,
+  normalizeLocation,
+  urlArgs
+};
