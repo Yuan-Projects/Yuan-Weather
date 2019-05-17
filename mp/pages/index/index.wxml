@@ -1,4 +1,27 @@
 <!--index.wxml-->
 <view class="container">
   <text class='location'>{{city}}</text>
+  <view class="flex-it flex-row">
+    <view class='flex-item-auto'>
+      <image style="width: 100px; height: 100px;" src="http://yuan-weather.000webhostapp.com/images/cond_icon/101.png"></image>
+    </view>
+    <view class='flex-item-auto cond_desc_text'>
+      <view>{{currentTemp}}</view>
+      <view>{{currentWeather}}</view>
+    </view>
+  </view>
+  <view>{{observationTime}}</view>
+  <view>{{temperatureRange}}</view>
+  <view wx:if="{{airQualityValue}}">空气质量：<text class="air_quality_level {{airQualityLevel}}">{{airQualityValue}}</text> PM2.5浓度：<text>{{airQualityPM25Value}}</text>μg/m³</view>
+  <view class='flex-it flex-row forecast-list'>
+    <template wx:for="{{forecast}}" wx:key="{{index}}" is="forecastItem" data="{{item}}" />
+  </view>
 </view>
+
+<template name="forecastItem">
+  <view class="flex-item-auto">
+    <view>{{item.date}}</view>
+    <view>{{item.condition}}</view>
+    <view><span class="high-temp">{{item.high_temperature}}°</span><span class="low-temp">{{item.low_temperature}}°</span></view>
+  </view>
+</template>
