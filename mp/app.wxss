@@ -1,4 +1,36 @@
 /**app.wxss**/
+table {
+  display: table;
+}
+
+thead {
+  display: table-header-group;
+  vertical-align: middle;
+}
+
+th {
+  display: table-cell;
+  vertical-align: inherit;
+  font-weight: bold;
+}
+
+tbody {
+  display: table-row-group;
+  vertical-align: middle;
+  border-color: inherit;
+}
+
+tr {
+  display: table-row;
+  vertical-align: inherit;
+  border-color: inherit;
+}
+
+td {
+  display: table-cell;
+  vertical-align: inherit;
+}
+
 .container {
   height: 100%;
   display: flex;

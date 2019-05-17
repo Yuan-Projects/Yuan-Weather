@@ -18,10 +18,31 @@
   </view>
 </view>
 
+<table id="aqi-site-list">
+  <thead>
+    <tr>
+      <th>监测站点</th>
+      <th>PM2.5(μg/m³)</th>
+      <th>AQI</th>
+    </tr>
+  </thead>
+  <tbody>
+    <template wx:for="{{aqi}}" wx:key="{{index}}" is="stationItem" data="{{item}}" />
+  </tbody>
+</table>
+
 <template name="forecastItem">
   <view class="flex-item-auto">
     <view>{{item.date}}</view>
     <view>{{item.condition}}</view>
     <view><span class="high-temp">{{item.high_temperature}}°</span><span class="low-temp">{{item.low_temperature}}°</span></view>
   </view>
+</template>
+
+<template name="stationItem">
+  <tr>
+    <td>{{item.station}}</td>
+    <td>{{item.pm25}}</td>
+    <td><span class="air_quality_{{item.aqiLevel}}">{{item.aqi}}</span></td>
+  </tr>
 </template>

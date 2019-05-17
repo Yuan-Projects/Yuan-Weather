@@ -1,6 +1,5 @@
 /**index.wxss**/
 .container {
-  background-color: gray;
 }
 
 .location {
@@ -56,4 +55,20 @@
 .low-temp {
   font-size: 16px;
   margin-left: 10px;
+}
+
+#aqi-site-list {
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 280px;
+  max-width: 420px;
+  background-color: #fff;
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+#aqi-site-list tbody tr td span[class^=air_quality_] {
+  width: 30px;
 }

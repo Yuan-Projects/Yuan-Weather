@@ -16,7 +16,8 @@ Page({
     airQualityLevel: '',
     airQualityValue: '',
     airQualityPM25Value: '',
-    forecast: []
+    forecast: [],
+    aqi: []
   },
   onLoad: function () {
     getWeatherDataByLocation('auto_ip', (data) => {
@@ -33,6 +34,10 @@ Page({
         airQualityPM25Value: pm25,
         forecast: forecast.map(item => {
           item.date = normalizeDailyDate(item.date);
+          return item;
+        }),
+        aqi: aqi.map(item => {
+          item.aqiLevel = getLevel(item.aqi);
           return item;
         })
       })
