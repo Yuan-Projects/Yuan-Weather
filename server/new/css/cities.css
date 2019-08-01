@@ -1,0 +1,48 @@
+.page-header {
+  position: relative;
+  background-color: #16a086;
+  height: 2em;
+}
+.page-title {
+  font-size: 1em;
+  font-weight: normal;
+  text-align: center;
+  line-height: 2em;
+  margin: 0;
+}
+.backBtn {
+  position: absolute;
+  left: 1em;
+  border: 1px solid white;
+  padding: 0 1em;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+.container {
+  max-width: 50em;
+  margin: 0 auto;
+}
+
+dd {
+  margin: 0;
+  text-align: center;
+}
+
+dd p {
+  display: inline-block;
+}
+
+.item_area dd {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.item_area dd > p {
+  flex: 25%;
+  max-width: 25%;
+}
+
+.item_area a {
+  text-decoration: none;
+}

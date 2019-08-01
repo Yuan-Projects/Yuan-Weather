@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/header.ejs %>
+  </head>
+  <body>
+    <div id="root">
+      <a id="geolocButton" class="geoloc" href="javascript:void(0)"></a>
+      <h1><%= location.country_name === "中国" ? location.state + location.city : location.city + ', ' + location.state %></h1>
+      <div id="now-condition" class="flex-it">
+        <div class="flex-item-auto cond_img_con"><img src="<%= current_observation.icon_url %>" alt="<%= current_observation.weather %>" /></div>
+        <div class="flex-item-auto cond_desc_text">
+          <p><%= current_observation.temperature %><%= isNaN(current_observation.temperature) ? '' : '℃' %></p>
+          <p><%= current_observation.weather %></p>
+        </div>
+      </div>
+      <p><%= current_observation.observation_time %></p>
+      <% function getLevel(aqi) {
+        return aqi > 200 ? 'level_5' : aqi > 150 ? 'level_4' : aqi > 100 ? 'level_3' : aqi > 50 ? 'level_2' : 'level_1';
+      } %>
+      <p><%= forecast[0].low_temperature %> ~ <%= forecast[0].high_temperature %>℃ <%= current_observation.wind %></p>
+      <% if (current_observation.aqi && current_observation.pm25) { %>
+      <p>空气质量：<span class="air_quality_<%= getLevel(current_observation.aqi) %>"><%= current_observation.aqi %></span> PM2.5浓度：<%= current_observation.pm25 %>μg/m³</p>
+      <% } %>
+
+      <div id="forcast-list" class="flex-it">
+        <% forecast.forEach(function(dailyData){ %>
+          <%- include('../partials/daily_forcast.ejs', {data: dailyData}); %>
+        <% }); %>
+      </div>
+
+      <% if (aqi.length) { %>
+      <table id="aqi-site-list">
+        <thead>
+          <th>监测站点</th>
+          <th>PM2.5(μg/m³)</th>
+          <th>AQI</th>
+        </thead>
+        <tbody>
+        <% aqi.forEach(function(station_data){ %>
+          <%- include('../partials/air_station.ejs', {data: station_data}); %>
+        <% }); %>
+        </tbody>
+      </table>
+      <% } %>
+      <div id="nudge">定位失败</div>
+      <% include ../partials/footer.ejs %>
+    </div>
+    <script src="/js/city.js"></script>
+  </body>
+</html>

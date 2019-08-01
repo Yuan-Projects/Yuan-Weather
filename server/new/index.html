@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Yuan Weather</title>
+    <link rel="stylesheet" type="text/css" href="./css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="./css/app.css" />
+    <link rel="stylesheet" type="text/css" href="./css/city.css" />
+  </head>
+  <body>
+    <header class="page-header">
+      <a href="cities.html" class="moreBtn">+</a>
+    </header>
+    <div id="root">
+      <noscript>Please enable JavaScript in your browser.</noscript>
+      <progress class="hidden"></progress>
+      <h1 class="location">&nbsp;</h1>
+      <div id="now-condition" class="flex-it">
+        <div class="flex-item-auto cond_img_con"><img class="currentWeatherImg" src="" alt="" /></div>
+        <div class="flex-item-auto cond_desc_text">
+          <p class="current_temp">&nbsp;</p>
+          <p class="current_weather">&nbsp;</p>
+        </div>
+      </div>
+      <p class="observation_time">&nbsp;</p>
+      <p class="temperature_range"></p>
+      <p class="air_quality hidden">空气质量：<span class="air_quality_level">&nbsp;</span> PM2.5浓度：<span class="air_quality_pm25">&nbsp;</span>μg/m³</p>
+
+      <div id="forcast-list" class="flex-it"></div>
+
+
+      <table id="aqi-site-list" class="hidden">
+        <thead>
+          <tr>
+            <th>监测站点</th>
+            <th>PM2.5(μg/m³)</th>
+            <th>AQI</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+
+      <p>Powered by <a href="https://github.com/rainyjune/weather">YuanWeather</a></p>
+    </div>
+    <script src="./js/axios.min.js"></script>
+    <script src="./js/config.js"></script>
+    <script src="./js/heweather.js"></script>
+    <script src="./js/city.js"></script>
+  </body>
+</html>

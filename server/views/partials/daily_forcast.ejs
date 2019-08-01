@@ -1,0 +1,11 @@
+<%
+  function getWeek(day) {
+    return ['周日', '周一', '周二', '周三', '周四', '周五', '周六'][day];
+  }
+%>
+<div class="flex-item-auto">
+  <p><%= isNaN(data.date.weekday) ? data.date.weekday : getWeek(data.date.weekday) %> <%= data.date.month %>-<%= data.date.day > 9 ? data.date.day : '0' + data.date.day %></p>
+  <p><img src="<%= data.icon_url %>" alt="<%= data.condition %>" /></p>
+  <p><%= data.condition %></p>
+  <p><span class="high-temp"><%= data.high_temperature %>°</span><span class="low-temp"><%= data.low_temperature %>°</span></p>
+</div>

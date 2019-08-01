@@ -1,0 +1,8 @@
+<% function getLevel(aqi) {
+  return aqi > 200 ? 'level_5' : aqi > 150 ? 'level_4' : aqi > 100 ? 'level_3' : aqi > 50 ? 'level_2' : 'level_1';
+} %>
+<tr>
+  <td><%= data.station %></td>
+  <td><%= data.pm25 %></td>
+  <td><span class="air_quality_<%= getLevel(data.aqi) %>"><%= data.aqi %></span></td>
+</tr>

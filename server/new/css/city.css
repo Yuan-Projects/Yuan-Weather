@@ -1,0 +1,122 @@
+.page-header {
+  position: relative;
+  background-color: #16a086;
+  height: 2em;
+}
+
+.moreBtn {
+  position: absolute;
+  left: 1em;
+  border: 1px solid white;
+  padding: 0 1em;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+#now-condition div.cond_img_con {
+  text-align: right;
+}
+
+#now-condition > div.cond_desc_text {
+  text-align: left;
+}
+
+#now-condition > div.cond_desc_text p {
+  margin: 0;
+}
+
+#now-condition > div.cond_desc_text p:nth-child(1) {
+  font-size: 30px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+img.cond_img_con img {
+  height: 66px;
+  display: inline-block;
+}
+
+.high-temp {
+  font-size: 24px;
+}
+
+.low-temp {
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+#forcast-list {
+  overflow: auto;
+  max-width: 50em;
+  margin: 0 auto;
+}
+
+#forcast-list > div {
+  min-width: 100px;
+}
+
+#forcast-list > div img {
+  width: 100%;
+  max-width: 100px;
+}
+
+.air_quality_level_1,
+.air_quality_level_2,
+.air_quality_level_3,
+.air_quality_level_4,
+.air_quality_level_5 {
+  display: inline-block;
+  color: #fff;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 5px;
+}
+
+.air_quality_level_1 {
+  background-color: #6eb720;
+}
+
+.air_quality_level_2 {
+  background-color: #d6c60f;
+}
+
+.air_quality_level_3 {
+  background-color: #ec7e22;
+}
+
+.air_quality_level_4 {
+  background-color: #df2d00;
+}
+
+.air_quality_level_5 {
+  background-color: #b414bb;
+}
+
+#aqi-site-list {
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 420px;
+  background-color: #fff;
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+#aqi-site-list thead {
+  border-bottom: #e0e0e0 solid 3px;
+}
+
+#aqi-site-list thead tr th:nth-child(1),
+#aqi-site-list tbody tr td:nth-child(1) {
+  text-align: left;
+}
+
+#aqi-site-list tbody tr td span[class^=air_quality_] {
+  width: 30px;
+}
+
+.hidden {
+  display: none;
+}
