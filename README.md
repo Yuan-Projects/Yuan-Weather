@@ -1,4 +1,5 @@
 # Yuan-Weather
 
- * server/ - Server side versions
+ * mp - YuanWeather for WeChat MiniProgram
+ * server - Server side versions
  
