@@ -54,9 +54,16 @@ const normalizeDailyDate = (date) => {
   return `${getWeek(date.weekday)} ${date.month}-${date.day > 9 ? date.day : "0" + date.day}`;
 };
 
+const getCurrentPage = () => {
+  var pages = getCurrentPages();
+  var currentPage = pages[pages.length - 1];
+  return currentPage;
+};
+
 export {
   ajax,
   formatTime,
+  getCurrentPage,
   getLevel,
   getUrlArg,
   getWeek,

@@ -1,18 +1,32 @@
 // pages/cities/cities.js
+import { getTopCities } from '../../utils/heweather';
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    defaultCities: []
+  },
 
+  bindViewCity: function(e) {
+    var cityId = e.target.dataset.cid;
+    if (cityId) {
+      wx.navigateTo({
+        url: `../index/index?cid=${cityId}`
+      });
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    getTopCities(function(data) {
+      this.setData({
+        defaultCities: data
+      });
+    }.bind(this));
   },
 
   /**

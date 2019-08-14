@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <view class="container">
-  <text class='location'>{{city}}</text>
+  <text class='location' bindtap="bindViewCities">{{city}}</text>
   <view class="flex-it flex-row">
     <view class='flex-item-auto'>
       <image style="width: 100px; height: 100px;" src="http://yuan-weather.000webhostapp.com/images/cond_icon/101.png"></image>

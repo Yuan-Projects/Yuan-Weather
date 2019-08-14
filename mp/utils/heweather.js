@@ -104,7 +104,31 @@ function adaptAPIResponse(data) {
   return result;
 }
 
+function getTopCities(callback) {
+  const topCitiesUrl = `https://search.heweather.net/top?group=cn&key=${encodeURIComponent(API_SERVER_AUTH_KEY)}`;
+  ajax({
+    url: topCitiesUrl,
+    success(cities) {
+      if (cities.statusCode === 200) {
+        var citiesArr = cities.data.HeWeather6[0].basic;
+        if (Array.isArray(citiesArr)) {
+          if (callback) {
+            callback(citiesArr);
+          }
+        }
+      }
+    },
+    fail(e) {
+      //debugger
+    },
+    complete() {
+      console.log('completed');
+    }
+  });
+}
+
 export {
   getWeatherDataByLocation,
-  adaptAPIResponse
+  adaptAPIResponse,
+  getTopCities
 };

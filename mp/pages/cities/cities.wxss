@@ -1,1 +1,20 @@
 /* pages/cities/cities.wxss */
+
+h2 {
+  display: block;
+}
+
+div.cities {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+div.cities > div {
+  box-sizing: border-box;
+  width: 23%;
+  margin: 1%;
+  border: 1px solid black;
+  border-radius: 3px;
+  justify-content: center;
+  text-align:center;
+}

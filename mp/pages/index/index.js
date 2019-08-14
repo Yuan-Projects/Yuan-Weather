@@ -1,7 +1,7 @@
 //index.js
 //获取应用实例
 const app = getApp();
-import { normalizeLocation, normalizeDailyDate, getLevel } from '../../utils/util';
+import { normalizeLocation, normalizeDailyDate, getLevel, getCurrentPage } from '../../utils/util';
 import { getWeatherDataByLocation } from '../../utils/heweather';
 
 Page({
@@ -19,8 +19,13 @@ Page({
     forecast: [],
     aqi: []
   },
+  bindViewCities: function() {
+    wx.navigateTo({
+      url: '../cities/cities'
+    });
+  },
   onLoad: function () {
-    getWeatherDataByLocation('auto_ip', (data) => {
+    getWeatherDataByLocation(getCurrentPage().options.cid || 'auto_ip', (data) => {
       const { location, current_observation, forecast, aqi } = data;
       const { icon_url, weather, temperature, observation_time, pm25 } = current_observation;
       this.setData({

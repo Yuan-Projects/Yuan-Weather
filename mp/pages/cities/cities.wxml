@@ -1,2 +1,9 @@
 <!--pages/cities/cities.wxml-->
-<text>pages/cities/cities.wxml</text>
+<h2>热门城市</h2>
+<div class="cities">
+  <template wx:for="{{defaultCities}}" wx:key="{{index}}" is="cityItem" data="{{item}}" />
+</div>
+
+<template name="cityItem">
+  <div bindtap="bindViewCity" data-cid="{{item.cid}}">{{item.location}}</div>
+</template>
