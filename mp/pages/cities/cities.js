@@ -1,12 +1,29 @@
 // pages/cities/cities.js
-import { getTopCities } from '../../utils/heweather';
+import { getTopCities, getCitiesByKeyword } from '../../utils/heweather';
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    defaultCities: []
+    defaultCities: [],
+    searchCities: [],
+    lastKeyword: ''
+  },
+
+  bindConfirmSearch: function(e) {
+    //debugger;
+    var keyword = e.detail.value;
+    if (!keyword) return;
+    this.setData({
+      lastKeyword: keyword,
+      searchCities: []
+    });
+    getCitiesByKeyword(keyword, function(data) {
+      this.setData({
+        searchCities: data
+      });
+    }.bind(this));
   },
 
   bindViewCity: function(e) {

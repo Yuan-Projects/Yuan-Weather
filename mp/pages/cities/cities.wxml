@@ -4,6 +4,17 @@
   <template wx:for="{{defaultCities}}" wx:key="{{index}}" is="cityItem" data="{{item}}" />
 </div>
 
+<h2>搜索</h2>
+<view class="section">
+  <input placeholder="这是一个可以自动聚焦的input" auto-focus bindconfirm="bindConfirmSearch" />
+</view>
+<div class="cities">
+  <template wx:for="{{searchCities}}" wx:key="{{index}}" is="cityItem" data="{{item}}" />
+</div>
+<view hidden="{{!(lastKeyword && !searchCities.length)}}">
+没有找到相关城市
+</view>
+
 <template name="cityItem">
   <div bindtap="bindViewCity" data-cid="{{item.cid}}">{{item.location}}</div>
 </template>

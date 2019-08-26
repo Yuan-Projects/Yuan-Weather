@@ -127,7 +127,31 @@ function getTopCities(callback) {
   });
 }
 
+function getCitiesByKeyword(keyword, callback) {
+  const url = `https://search.heweather.net/find?mode=equal&location=${keyword}&key=${encodeURIComponent(API_SERVER_AUTH_KEY)}`;
+  ajax({
+    url: url,
+    success(cities) {
+      if (cities.statusCode === 200) {
+        var citiesArr = cities.data.HeWeather6[0].basic;
+        if (Array.isArray(citiesArr)) {
+          if (callback) {
+            callback(citiesArr);
+          }
+        }
+      }
+    },
+    fail(e) {
+      //debugger
+    },
+    complete() {
+      console.log('completed');
+    }
+  });
+}
+
 export {
+  getCitiesByKeyword,
   getWeatherDataByLocation,
   adaptAPIResponse,
   getTopCities
