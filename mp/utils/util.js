@@ -19,10 +19,16 @@ const ajax = options => {
 };
 
 const getLevel = aqi => {
+  if (!Number.isInteger(aqi) || aqi < 0) {
+    throw new Error('The parameter of getLevel function should be an integer greater than 0');
+  }
   return aqi > 200 ? 'level_5' : aqi > 150 ? 'level_4' : aqi > 100 ? 'level_3' : aqi > 50 ? 'level_2' : 'level_1';
 };
 
 const getWeek = day => {
+  if (!Number.isInteger(day) || day > 6 || day < 0) {
+    throw new Error('The parameter of getWeek function should be an integer between 0 and 6');
+  }
   return ['周日', '周一', '周二', '周三', '周四', '周五', '周六'][day];
 };
 
