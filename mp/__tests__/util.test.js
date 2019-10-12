@@ -75,4 +75,26 @@ describe('getWeek', () => {
       getWeek(1.5);
     }).toThrow();
   });
+
+  test('0 => 周日', () => {
+    expect(getWeek(0)).toEqual('周日');
+  });
+  test('1 => 周一', () => {
+    expect(getWeek(1)).toEqual('周一');
+  });
+  test('2 => 周二', () => {
+    expect(getWeek(2)).toEqual('周二');
+  });
+  test('3 => 周三', () => {
+    expect(getWeek(3)).toEqual('周三');
+  });
+  test('4 => 周四', () => {
+    expect(getWeek(4)).toEqual('周四');
+  });
+  test('5 => 周五', () => {
+    expect(getWeek(5)).toEqual('周五');
+  });
+  test('6 => 周六', () => {
+    expect(getWeek(6)).toEqual('周六');
+  });
 });
