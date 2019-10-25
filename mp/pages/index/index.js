@@ -24,7 +24,11 @@ Page({
       url: '../cities/cities'
     });
   },
-  onLoad: function () {
+  onShow: function() {
+    wx.showLoading({
+      title: '加载中',
+    });
+
     getWeatherDataByLocation(getCurrentPage().options.cid || 'auto_ip', (data) => {
       const { location, current_observation, forecast, aqi } = data;
       const { icon_url, weather, temperature, observation_time, pm25 } = current_observation;
@@ -45,7 +49,8 @@ Page({
           item.aqiLevel = getLevel(Number(item.aqi));
           return item;
         })
-      })
+      });
+      wx.hideLoading();
     });
   }
 })
