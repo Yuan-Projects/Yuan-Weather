@@ -1,6 +1,6 @@
 {
   "name": "YuanWeather",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "YuanWeather for WeChat Mini Program",
   "main": "app.js",
   "scripts": {
