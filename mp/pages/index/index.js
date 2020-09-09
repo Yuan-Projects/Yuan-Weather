@@ -7,7 +7,7 @@ import { getWeatherDataByLocation } from '../../utils/heweather';
 Page({
   data: {
     city: '',
-    currentWeatherImgSrc: '',
+    currentWeatherImgSrc: 'https://yuan-projects.github.io/WeatherIcon/weather-icon-S1/color-256/101.png',
     currentWeatherImgAlt: '',
     currentTemp: '',
     currentWeather: '',
@@ -28,12 +28,12 @@ Page({
     wx.showLoading({
       title: '加载中',
     });
-
     getWeatherDataByLocation(getCurrentPage().options.cid || 'auto_ip', (data) => {
       const { location, current_observation, forecast, aqi } = data;
       const { icon_url, weather, temperature, observation_time, pm25 } = current_observation;
       this.setData({
         city: normalizeLocation(location.state, location.city),
+        currentWeatherImgSrc: icon_url,
         currentTemp: `${temperature}${isNaN(temperature) ? '' : '℃'}`,
         currentWeather: weather,
         observationTime: observation_time,

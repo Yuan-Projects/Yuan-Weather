@@ -1,6 +1,5 @@
 import defaultExport from './config';
-const { API_SERVER, API_SERVER_AUTH_KEY } = defaultExport;
-console.log('defaultExport', defaultExport);
+const { API_SERVER, API_SERVER_AUTH_KEY, ICON_SERVER } = defaultExport;
 import { ajax } from './util';
 
 function getWeatherDataByLocation(location, successFunction) {
@@ -55,7 +54,7 @@ function adaptAPIResponse(data) {
     current_observation: {
       temperature: data.now.tmp,
       weather: data.now.cond_txt,
-      icon_url: `/images/cond_icon/${data.now.cond_code}.png`,
+      icon_url: `${ICON_SERVER}${data.now.cond_code}.png`,
       wind: data.daily_forecast[0].wind_dir + data.daily_forecast[0].wind_sc,
       observation_time: data.update.loc.split(' ')[1]
     },
@@ -80,7 +79,7 @@ function adaptAPIResponse(data) {
         "high_temperature": item.tmp_max,
         "low_temperature": item.tmp_min,
         "condition": item.cond_txt_d,
-        "icon_url": `/images/cond_icon/${item.cond_code_d}.png`
+        "icon_url": `${ICON_SERVER}${item.cond_code_d}.png`
       };
     });
   }

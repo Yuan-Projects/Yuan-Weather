@@ -3,7 +3,7 @@
   <text class='location' bindtap="bindViewCities">{{city}}</text>
   <view class="flex-it flex-row">
     <view class='flex-item-auto'>
-      <image style="width: 100px; height: 100px;" src="https://yuan-projects.github.io/WeatherIcon/weather-icon-S1/color-256/101.png"></image>
+      <image style="width: 100px; height: 100px;" src="{{currentWeatherImgSrc}}"></image>
     </view>
     <view class='flex-item-auto cond_desc_text'>
       <view>{{currentTemp}}</view>
