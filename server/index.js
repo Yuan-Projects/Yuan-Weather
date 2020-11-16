@@ -1,3 +1,4 @@
+const net = require('net');
 var express = require('express');
 var app = express();
 const dataProvider = require('./dataProvider/index.js');
@@ -12,7 +13,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
-  request.params.city = request.ip;
+  request.params.city = net.isIPv4(request.ip) ? request.ip : 'beijing';
   renderCityPage(request, response);
 });
 
