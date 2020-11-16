@@ -1,0 +1,17 @@
+{
+  "lang": "zh-cn",
+  "name": "YuanWeather",
+  "short_name": "YuanWeather",
+  "description": "A simple weather app",
+  "start_url": "/",
+  "background_color": "#2f3d58",
+  "theme_color": "#2f3d58",        
+  "orientation": "any",
+  "display": "standalone",
+  "icons": [
+      {
+          "src": "/images/pwa.png",
+          "sizes": "512x512"
+      }
+  ]
+}
