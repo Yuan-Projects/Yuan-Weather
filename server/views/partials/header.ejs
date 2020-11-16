@@ -17,15 +17,15 @@
 </script>
 <% } %>
 <script type="module">
-// This is the "Offline page" service worker
-
-/*
- This code uses the pwa-update web component https://github.com/pwa-builder/pwa-update to register your service worker,
- tell the user when there is an update available and let the user know when your PWA is ready to use offline.
-*/
-
-import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
-
-const el = document.createElement('pwa-update');
-document.body.appendChild(el);
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register("/pwabuilder-sw.js")
+    .then(registration => {
+      console.log('Service Worker is registered', registration);
+    })
+    .catch(err => {
+      console.error('Registration failed:', err);
+    });
+  });
+}
 </script>
