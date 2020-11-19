@@ -9,9 +9,16 @@ This application supports the [Getting Started with Node on Heroku](https://devc
 Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
 
 ```sh
-$ git clone https://github.com/rainyjune/weather.git # or clone your own fork
-$ cd weather
+$ git clone https://github.com/Yuan-Projects/Yuan-Weather.git # or clone your own fork
+$ cd Yuan-Weather/server
 $ npm install
+```
+
+Open `config.js` in your favorite code editor, put your API keys in it.
+
+Then run the following command in terminal:
+
+```sh
 $ npm start
 ```
 
