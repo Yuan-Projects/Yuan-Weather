@@ -39,9 +39,9 @@ self.addEventListener('fetch', event => {
   console.log('requestURL:', requestURL);
   // Routing for local URLs
   if (requestURL.origin === location.origin) {
-    // Network first and save to cache, always show the latest content for the index page.
+    // Network first and save to cache, always show the latest content for the index/weather page.
     // Read from cache if online.
-    if (requestURL.pathname === '/') {
+    if (requestURL.pathname === '/' || /^\/city\//.test(requestURL.pathname)) {
       event.respondWith(
         fetch(event.request).then(response => {
           return caches.open(CACHE).then(cache => {
