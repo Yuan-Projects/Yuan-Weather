@@ -28,6 +28,11 @@ app.get('/api/city/:city', function(req, res) {
 app.get('/city/:city', renderCityPage);
 app.get('/city/:city/:city2', renderCityPage);
 
+app.use((req, res, next) => {
+  res.status(404);
+  res.render('pages/404');
+});
+
 function renderCityPage(req, res) {
   let city = req.params.city;
   if (req.params.city2) {
