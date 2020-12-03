@@ -13,7 +13,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
-  request.params.city = net.isIPv4(request.ip) ? request.ip : 'beijing';
+  request.params.city = 'beijing';
   renderCityPage(request, response);
 });
 
