@@ -1,5 +1,5 @@
 // Cache Storage Name. Can be consider as the version of your web site.
-const CACHE = "pages-cache-v2";
+const CACHE = "pages-cache-v3";
 
 // Things that would make your site entirely non-functional if they failed to be fetched, things an equivalent native-app would make part of the initial download.
 // Ideal for: CSS, images, fonts, JS, templates… basically anything you'd consider static to that "version" of your site.
