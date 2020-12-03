@@ -25,6 +25,16 @@ app.get('/api/city/:city', function(req, res) {
   });
 });
 
+app.get('/api/getcitybygeocode/:latlon', function(req, res) {
+  dataProvider.getCityByGeocode(req.params.latlon)
+    .then(data => {
+      return res.json(data);
+    })
+    .catch(() => {
+      res.send({status: 'error'});
+    })
+});
+
 app.get('/city/:city', renderCityPage);
 app.get('/city/:city/:city2', renderCityPage);
 

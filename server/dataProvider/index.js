@@ -21,6 +21,21 @@ function getWeatherDataByLocation(location) {
   });
 }
 
+const geocodeURL = 'https://api.bigdatacloud.net/data/reverse-geocode-client?latitude={latitude}&longitude={longitude}&localityLanguage=en';
+function getCityByGeocode(latlon) {
+  const [latitude, longitude] = latlon.split(',');
+  var url = geocodeURL.replace('{latitude}', latitude).replace('{longitude}', longitude);
+  return new Promise((resolve, reject) => {
+    axios.get(url).then(response => {
+      resolve(response.data);
+    })
+    .catch(error => {
+      reject(error);
+    });
+  });
+}
+
 module.exports = {
-  getWeatherDataByLocation
+  getWeatherDataByLocation,
+  getCityByGeocode
 };

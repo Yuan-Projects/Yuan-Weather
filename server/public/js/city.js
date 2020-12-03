@@ -29,7 +29,13 @@ window.onload = function () {
       classList.remove('locating');
       // Do magic with location
       startPos = position;
-      window.location = '/city/' + encodeURIComponent(startPos.coords.longitude + ',' + startPos.coords.latitude);
+      fetch('/api/getcitybygeocode/' + encodeURIComponent(startPos.coords.latitude + ',' + startPos.coords.longitude)).then(data => {
+        return data.json()
+      }).then(result => {
+        if (result.city) {
+          window.location = '/city/' + encodeURIComponent(result.city);
+        }
+      })
     };
     var geoError = function(error) {
       showNudgeBanner();
