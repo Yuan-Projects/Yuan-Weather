@@ -1,3 +1,4 @@
+// documentation: https://dev.qweather.com/docs/legacy/api/s6
 const axios = require('axios');
 const config = require('../config.js');
 
@@ -18,6 +19,9 @@ function getWeatherDataByLocation(location, key = '', lang = 'zh', unit = 'm') {
     let resultData = {
       status: 'unknown error'
     };
+    if (!weatherRes || !airRes || !weatherRes.data || !airRes.data || !weatherRes.data.HeWeather6 || !weatherRes.data.HeWeather6[0] || weatherRes.data.HeWeather6[0].status !== 'ok' || !airRes.data.HeWeather6[0] || airRes.data.HeWeather6[0].status !== 'ok') {
+      return resultData;
+    }
     Object.assign(resultData, weatherRes.data.HeWeather6[0], {
       status: 'ok'
     });
@@ -29,7 +33,6 @@ function getWeatherDataByLocation(location, key = '', lang = 'zh', unit = 'm') {
         air_now_station: airData.air_now_station
       });
     }
-    //console.log('resultData111', resultData)
     return adaptAPIResponse(resultData);
   }));
 }

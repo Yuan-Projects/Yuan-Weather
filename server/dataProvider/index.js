@@ -16,7 +16,7 @@ function getWeatherDataByLocation(location) {
         throw new Error(res.status);
       }
     }).catch((err) => {
-      console.log('erro 1', err)
+      reject(err);
     });
   });
 }
