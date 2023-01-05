@@ -1,8 +1,8 @@
 {
-  "name": "desktop",
-  "productName": "desktop",
+  "name": "yuan-weather-desktop",
+  "productName": "Yuan Weather",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Weather service with AQI support",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
