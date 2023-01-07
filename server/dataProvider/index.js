@@ -1,41 +1,68 @@
-const axios = require('axios');
-const config = require('../config.js');
-let provider = null;
-if (config.PROVIDER === 'heweather') {
-  provider = require('./heweather.js')
-} else {
-  provider = require('./yikeyun.js');
+const axios = require("axios");
+const config = require("../config.js");
+const net = require("net");
+
+const key = config.API_SERVER_AUTH_KEY;
+let provider = require("./visualcrossing");
+
+async function getWeatherDataByLocation(location) {
+  try {
+    if (net.isIP(location)) {
+      location = await getCityByIpAddress(location).then();
+    } else if (isLatLon(location)) {
+      location = await getCityByGeocode(location);
+    }
+    const data = await provider
+      .getWeatherDataByLocation(location, key)
+      .then((res) => {
+        const converted = provider.adaptAPIResponse(res);
+        return converted;
+      });
+    return data;
+  } catch (error) {
+    throw error;
+  }
 }
 
-function getWeatherDataByLocation(location) {
+function isLatLon(str) {
+  return str.indexOf(",") > 0;
+}
+
+const geocodeURL =
+  "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude={latitude}&longitude={longitude}&localityLanguage=en";
+function getCityByGeocode(latlon) {
+  const [latitude, longitude] = latlon.split(",");
+  var url = geocodeURL
+    .replace("{latitude}", latitude)
+    .replace("{longitude}", longitude);
   return new Promise((resolve, reject) => {
-    provider.getWeatherDataByLocation(location).then((res) => {
-      if (res.status === 'ok' && res.location.country_name === '中国') {
-        resolve(res);
-      } else {
-        throw new Error(res.status);
-      }
-    }).catch((err) => {
-      reject(err);
-    });
+    axios
+      .get(url)
+      .then((response) => {
+        resolve(response.data.city);
+      })
+      .catch((error) => {
+        reject(error);
+      });
   });
 }
 
-const geocodeURL = 'https://api.bigdatacloud.net/data/reverse-geocode-client?latitude={latitude}&longitude={longitude}&localityLanguage=en';
-function getCityByGeocode(latlon) {
-  const [latitude, longitude] = latlon.split(',');
-  var url = geocodeURL.replace('{latitude}', latitude).replace('{longitude}', longitude);
+function getCityByIpAddress(IPAddress) {
   return new Promise((resolve, reject) => {
-    axios.get(url).then(response => {
-      resolve(response.data);
-    })
-    .catch(error => {
-      reject(error);
-    });
+    fetch(`https://ipapi.co/${IPAddress}/json/`)
+      .then((response) => response.json())
+      .then((data) => {
+        resolve(data.city);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        reject(error);
+      });
   });
 }
 
 module.exports = {
   getWeatherDataByLocation,
-  getCityByGeocode
+  getCityByGeocode,
+  getCityByIpAddress,
 };
