@@ -1,8 +1,7 @@
 const axios = require("axios");
-const config = require("../config.js");
 const net = require("net");
 
-const key = config.API_SERVER_AUTH_KEY;
+const key = process.env.WEATHER_API_APP_KEY;
 let provider = require("./visualcrossing");
 
 async function getWeatherDataByLocation(location) {
