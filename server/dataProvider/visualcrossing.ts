@@ -33,6 +33,9 @@ const parseDateStr2Obj = (dateString: string): DailyForecastDateInterface => {
     weekday: "",
   };
 };
+
+const icon_url = "https://yuan-projects.github.io/WeatherIcons/PNG/1st%20Set%20-%20Color/<ICON>.png";
+
 export const adaptAPIResponse = (weatherData: any): WeatherDataInterface => {
   const data: WeatherDataInterface = {
     status: "ok",
@@ -44,7 +47,7 @@ export const adaptAPIResponse = (weatherData: any): WeatherDataInterface => {
     current_observation: {
       temperature: weatherData.currentConditions.temp,
       weather: weatherData.currentConditions.conditions,
-      icon_url: weatherData.currentConditions.icon,
+      icon_url: icon_url.replace('<ICON>', weatherData.currentConditions.icon),
       wind: weatherData.currentConditions.windspeed, // todo: dir
       observation_time: weatherData.currentConditions.datetime,
     },
@@ -54,7 +57,7 @@ export const adaptAPIResponse = (weatherData: any): WeatherDataInterface => {
         high_temperature: day.tempmax,
         low_temperature: day.tempmin,
         condition: day.conditions,
-        icon_url: day.icon,
+        icon_url: icon_url.replace('<ICON>', day.icon)
       };
     }),
     aqi: [],

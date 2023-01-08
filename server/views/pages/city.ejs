@@ -6,7 +6,7 @@
   <body>
     <div id="root">
       <a id="geolocButton" class="geoloc" href="javascript:void(0)"></a>
-      <h1><%= location.country_name === "中国" ? location.state + location.city : location.city + ', ' + location.state %></h1>
+      <h1><%= location.city %></h1>
       <div id="now-condition" class="flex-it">
         <div class="flex-item-auto cond_img_con"><img src="<%= current_observation.icon_url %>" alt="<%= current_observation.weather %>" /></div>
         <div class="flex-item-auto cond_desc_text">
