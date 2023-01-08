@@ -7,7 +7,7 @@ export const getWeatherDataByLocation = (
   return new Promise((resolve, reject) => {
     const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${encodeURIComponent(
       location.trim()
-    )}?unitGroup=metric&include=events%2Cdays%2Chours%2Calerts%2Ccurrent&key=${key}&contentType=json`;
+    )}/next7days?unitGroup=metric&include=events%2Cdays%2Calerts%2Ccurrent&key=${key}&contentType=json`;
     //console.log("URL:", url);
     fetch(url, {
       method: "GET",
