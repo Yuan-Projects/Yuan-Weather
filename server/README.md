@@ -2,19 +2,27 @@
 
 This web app is using [Express 4](http://expressjs.com/).
 
-This application supports the [Getting Started with Node on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs) article - check it out.
-
 ## Running Locally
 
-Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
+Make sure you have [Node.js](http://nodejs.org/) installed.
 
 ```sh
 $ git clone https://github.com/Yuan-Projects/Yuan-Weather.git # or clone your own fork
 $ cd Yuan-Weather/server
-$ npm install
+$ npm install && npm run build
 ```
 
-Open `config.js` in your favorite code editor, put your API keys in it.
+Open `package.json` with your favorite code editor, edit the `start` script value:
+
+```json
+"scripts": {
+  "start": "set WEATHER_API_APP_KEY=<YOUR_VISUALCROSSING_WEATHER_KEY> && node index.js"
+}
+```
+
+This application is using [Visual Crossing Weather API](https://www.visualcrossing.com/weather-api), you need to obtain your key first, and replace `<YOUR_VISUALCROSSING_WEATHER_KEY>` with your own key.
+
+**Note**: You should only do this when developing and testing on your local machine. Do NOT commit it to Git or any other source control tools. When deploying to a production machine, you should set this environment variable on the service side.
 
 Then run the following command in terminal:
 
@@ -24,23 +32,3 @@ $ npm start
 
 Your app should now be running on [localhost:5000](http://localhost:5000/).
 
-## Deploying to Heroku
-
-```
-$ heroku create
-$ git push heroku master
-$ heroku open
-```
-or
-
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-
-## Documentation
-
-For more information about using Node.js on Heroku, see these Dev Center articles:
-
-- [Getting Started with Node.js on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-- [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)
-- [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
-- [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
-- [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
