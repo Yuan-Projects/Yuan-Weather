@@ -2,12 +2,14 @@ const axios = require("axios");
 const net = require("net");
 
 const key = process.env.WEATHER_API_APP_KEY;
+const aqi_key = process.env.AQI_API_KEY;
+
 let provider = require("./visualcrossing");
 
 async function getWeatherDataByLocation(location) {
   try {
     if (net.isIP(location)) {
-      location = await getCityByIpAddress(location).then();
+      location = await getCityByIpAddress(location);
     } else if (isLatLon(location)) {
       location = await getCityByGeocode(location);
     }
@@ -17,6 +19,18 @@ async function getWeatherDataByLocation(location) {
         const converted = provider.adaptAPIResponse(res);
         return converted;
       });
+
+    if (data.current_observation) {
+      const aqiServerURL = `https://api.waqi.info/feed/<city>/?token=<token>`
+        .replace("<city>", location)
+        .replace("<token>", aqi_key);
+      await fetch(aqiServerURL)
+        .then((data) => data.json())
+        .then((aqiData) => {
+          data.current_observation.aqi = aqiData.data.aqi;
+        });
+    }
+
     return data;
   } catch (error) {
     throw error;

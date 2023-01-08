@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <%- include ('../partials/header.ejs'); -%>
   </head>
@@ -19,8 +19,8 @@
         return aqi > 200 ? 'level_5' : aqi > 150 ? 'level_4' : aqi > 100 ? 'level_3' : aqi > 50 ? 'level_2' : 'level_1';
       } %>
       <p><%= forecast[0].low_temperature %> ~ <%= forecast[0].high_temperature %>℃ <%= current_observation.wind %></p>
-      <% if (current_observation.aqi && current_observation.pm25) { %>
-      <p>空气质量：<span class="air_quality_<%= getLevel(current_observation.aqi) %>"><%= current_observation.aqi %></span> PM2.5浓度：<%= current_observation.pm25 %>μg/m³</p>
+      <% if (current_observation.aqi) { %>
+      <p>AQI：<span class="air_quality_<%= getLevel(current_observation.aqi) %>"><%= current_observation.aqi %></span></p>
       <% } %>
 
       <div id="forcast-list" class="flex-it">
