@@ -1,99 +1,115 @@
-// documentation: https://dev.qweather.com/docs/legacy/api/s6
-const axios = require('axios');
-const config = require('../config.js');
+// documentation: https://dev.qweather.com/docs/api/
+const GA_TRACKING_ID = process.env.GA_TRACKING_ID || "";
+const API_SERVER = "https://devapi.qweather.com";
 
-const GA_TRACKING_ID = process.env.GA_TRACKING_ID || config.GA_TRACKING_ID;
-const API_SERVER_AUTH_KEY = process.env.API_SERVER_AUTH_KEY || config.API_SERVER_AUTH_KEY;
-const API_SERVER = 'https://free-api.heweather.com/s6';
+async function getWeatherDataByLocation(
+  location,
+  key = "",
+  lang = "zh",
+  unit = "m"
+) {
+  try {
+    const geoUrl = `https://geoapi.qweather.com/v2/city/lookup?location=${location}&key=${key}&lang=${lang}&number=1`;
 
-function getWeatherDataByLocation(location, key = '', lang = 'zh', unit = 'm') {
-  let resultObj = null;
-  const weatherUrl = `${API_SERVER}/weather?location=${location}&key=${API_SERVER_AUTH_KEY}`;
-  const airUrl = `${API_SERVER}/air/now?location=${location}&key=${API_SERVER_AUTH_KEY}`;
+    const geoRes = await fetch(geoUrl).then((data) => data.json());
+    if (String(geoRes.code) !== "200") {
+      throw new Error("Weather API Server Error");
+    }
+    if (!geoRes.location.length) {
+      throw new Error(`Could not find the city: ${location}`);
+    }
+    location = geoRes.location[0].id;
+    console.log("after lookup:", location);
 
-  return axios.all([axios.get(weatherUrl), axios.get(airUrl)])
-  .then(axios.spread(function (weatherRes, airRes) {
-    // Both requests are now complete
-    //console.log('weather', weatherRes.data.HeWeather6);
-    //console.log('air', airRes.data.HeWeather6);
-    let resultData = {
-      status: 'unknown error'
+    const weatherUrl = `${API_SERVER}/v7/weather/now?location=${location}&key=${key}&lang=${lang}&unit=${unit}`;
+    const airUrl = `${API_SERVER}/v7/air/now?location=${location}&key=${key}&lang=${lang}&unit=${unit}`;
+    const forecast7Days = `${API_SERVER}/v7/weather/3d?location=${location}&key=${key}&lang=${lang}&unit=${unit}`;
+
+    console.log("weatherUrl:", weatherUrl, airUrl);
+
+    const weatherRes = await fetch(weatherUrl).then((data) => data.json());
+    const forecastRes = await fetch(forecast7Days).then((data) => data.json());
+    const airRes = await fetch(airUrl).then((data) => data.json());
+
+    console.log("airRes:", airRes, airUrl);
+
+    if (weatherRes.code != "200" || forecastRes.code != "200") {
+      throw new Error("Weather API Server Error");
+    }
+
+    return {
+      geoLocation: {
+        ...geoRes.location[0],
+      },
+      now: {
+        ...weatherRes.now,
+      },
+      forecast: [...forecastRes.daily],
+      air: {
+        ...(airRes.now || {}),
+      },
+      aqiStations: [...(airRes.station ? airRes.station : [])],
     };
-    if (!weatherRes || !airRes || !weatherRes.data || !airRes.data || !weatherRes.data.HeWeather6 || !weatherRes.data.HeWeather6[0] || weatherRes.data.HeWeather6[0].status !== 'ok' || !airRes.data.HeWeather6[0] || airRes.data.HeWeather6[0].status !== 'ok') {
-      return resultData;
-    }
-    Object.assign(resultData, weatherRes.data.HeWeather6[0], {
-      status: 'ok'
-    });
-
-    if (airRes.data.HeWeather6 && airRes.data.HeWeather6[0] && airRes.data.HeWeather6[0].status === 'ok') {
-      let airData = airRes.data.HeWeather6[0];
-      Object.assign(resultData, {
-        air_now_city: airData.air_now_city,
-        air_now_station: airData.air_now_station
-      });
-    }
-    return adaptAPIResponse(resultData);
-  }));
+  } catch (e) {
+    throw e;
+  }
 }
 
 function adaptAPIResponse(data) {
-  if (data.status !== 'ok') {
-    return data;
-  }
+  console.log("DATA: 2222", data);
   var result = {
-    status: data.status,
+    status: "ok",
     location: {
-      country_name: data.basic.cnty,
-      state: data.basic.admin_area,
-      city: data.basic.parent_city || data.basic.location
+      country_name: data.geoLocation.country,
+      state: data.geoLocation.adm1,
+      city: data.geoLocation.name,
     },
     current_observation: {
-      temperature: data.now.tmp,
-      weather: data.now.cond_txt,
-      icon_url: '/images/cond_icon/' + data.now.cond_code + '.png',
-      wind: data.daily_forecast[0].wind_dir + data.daily_forecast[0].wind_sc,
-      observation_time: data.update.loc.split(' ')[1]
+      temperature: data.now.temp,
+      weather: data.now.text,
+      icon_url: "/images/cond_icon/" + data.now.icon + ".png",
+      wind: data.now.windDir + data.now.windScale,
+      observation_time: data.now.obsTime,
     },
     forecast: [],
     aqi: [],
-    GA_TRACKING_ID: GA_TRACKING_ID
+    GA_TRACKING_ID: GA_TRACKING_ID,
   };
 
-  if (data.daily_forecast) {
-    result.forecast = data.daily_forecast.map((item) => {
-      var dateArr = item.date.split('-'),
-          origYear = parseInt(dateArr[0]),
-          origMonth = parseInt(dateArr[1]),
-          origDay = parseInt(dateArr[2]);
+  if (data.forecast) {
+    result.forecast = data.forecast.map((item) => {
+      var dateArr = item.fxDate.split("-"),
+        origYear = parseInt(dateArr[0]),
+        origMonth = parseInt(dateArr[1]),
+        origDay = parseInt(dateArr[2]);
 
       return {
-        "date": {
-          "year": origYear,
-          "month": dateArr[1],
-          "day": origDay,
-          "weekday": (new Date(origYear, origMonth - 1, origDay)).getDay()
+        date: {
+          year: origYear,
+          month: dateArr[1],
+          day: origDay,
+          weekday: new Date(origYear, origMonth - 1, origDay).getDay(),
         },
-        "high_temperature": item.tmp_max,
-        "low_temperature": item.tmp_min,
-        "condition": item.cond_txt_d,
-        "icon_url": '/images/cond_icon/' + item.cond_code_d + '.png'
+        high_temperature: item.tempMax,
+        low_temperature: item.tempMin,
+        condition: item.textDay,
+        icon_url: "/images/cond_icon/" + item.iconDay + ".png",
       };
     });
   }
 
-  if (data.air_now_city) {
-    result.current_observation.aqi = data.air_now_city.aqi;
-    result.current_observation.pm25 = data.air_now_city.pm25;
-    result.current_observation.qlty = data.air_now_city.qlty; // TODO
+  if (data.air) {
+    result.current_observation.aqi = data.air.aqi;
+    result.current_observation.pm25 = data.air.pm2p5;
+    result.current_observation.qlty = data.air.category;
   }
 
-  if (data.air_now_station) {
-    result.aqi = data.air_now_station.map((item) => {
+  if (data.aqiStations) {
+    result.aqi = data.aqiStations.map((item) => {
       return {
-        "station": item.air_sta,
-        "pm25": item.pm25,
-        "aqi": item.aqi
+        station: item.name,
+        pm25: item.pm2p5,
+        aqi: item.aqi,
       };
     });
   }
@@ -103,5 +119,5 @@ function adaptAPIResponse(data) {
 
 module.exports = {
   getWeatherDataByLocation,
-  adaptAPIResponse
+  adaptAPIResponse,
 };
