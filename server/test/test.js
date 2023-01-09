@@ -1,5 +1,4 @@
 const assert = require("assert");
-const config = require("../config.js");
 const dataProvider = require("../dataProvider/index.js");
 
 var sample = {
@@ -42,7 +41,10 @@ var sample = {
 
 describe("HeWeather API Tests", function () {
   it("[setup]This project is properly configured", () => {
-    assert.ok(config.API_SERVER_AUTH_KEY, "HeWeather API key has been set up");
+    assert.ok(
+      process.env.WEATHER_API_APP_KEY,
+      "Weather API key has been set up"
+    );
   });
 
   it("#1 Get weather infomation in Yantian District, Shenzhen, China", function (done) {
@@ -79,11 +81,6 @@ describe("HeWeather API Tests", function () {
       .getWeatherDataByLocation(query)
       .then(function (data) {
         console.log("sddddd 22:", data);
-        /*
-        assert.equal(data.location.country_name, "Australia");
-        assert.equal(data.location.state, "WAS");
-        assert.equal(data.location.city, "Perth");
-        */
 
         assert.ok(
           data.current_observation.temperature,
@@ -109,11 +106,11 @@ describe("HeWeather API Tests", function () {
       .catch(done);
   };
 
-  it("#1 Get weather infomation in Perth, Western Australia by IP address", (done) => {
+  it("#2 Get weather infomation in Perth, Western Australia by IP address", (done) => {
     perthFunc(done, "1.127.49.41");
   });
 
-  it("#1 Get weather infomation in Perth, Western Australia by geolocation", (done) => {
+  it("#3 Get weather infomation in Perth, Western Australia by geolocation", (done) => {
     // Note when specifying a geolocation, the format should be `latitude,longitude` for wunderground API
     // But here longitude comes first because we'll revert the orders in wunderground.js
     perthFunc(done, "-31.953512,115.857048");
