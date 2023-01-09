@@ -14,3 +14,4 @@ docker-compose.yml
 
 # Generated JS files
 dataProvider/visualcrossing.js
+dataProvider/helper.js
