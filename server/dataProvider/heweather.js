@@ -25,13 +25,11 @@ async function getWeatherDataByLocation(
     const airUrl = `${API_SERVER}/v7/air/now?location=${location}&key=${key}&lang=${lang}&unit=${unit}`;
     const forecast7Days = `${API_SERVER}/v7/weather/3d?location=${location}&key=${key}&lang=${lang}&unit=${unit}`;
 
-    console.log("weatherUrl:", weatherUrl, airUrl);
-
-    const weatherRes = await fetch(weatherUrl).then((data) => data.json());
-    const forecastRes = await fetch(forecast7Days).then((data) => data.json());
-    const airRes = await fetch(airUrl).then((data) => data.json());
-
-    console.log("airRes:", airRes, airUrl);
+    const [weatherRes, forecastRes, airRes] = await Promise.all([
+      fetch(weatherUrl).then((data) => data.json()),
+      fetch(forecast7Days).then((data) => data.json()),
+      fetch(airUrl).then((data) => data.json()),
+    ]);
 
     if (weatherRes.code != "200" || forecastRes.code != "200") {
       throw new Error("Weather API Server Error");
@@ -56,7 +54,6 @@ async function getWeatherDataByLocation(
 }
 
 function adaptAPIResponse(data) {
-  console.log("DATA: 2222", data);
   var result = {
     status: "ok",
     location: {
