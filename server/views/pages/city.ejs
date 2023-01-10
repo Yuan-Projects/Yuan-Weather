@@ -4,29 +4,54 @@
     <%- include ('../partials/header.ejs'); -%>
   </head>
   <body>
-    <div id="root">
+    <div id="header" href="#">
+      <span>Yuan Weather</span>
+      <input
+        type="text"
+        name="cityKeyword"
+        value=""
+        style="visibility: hidden"
+        size="10"
+      />
+      <a id="searchButton">Search</a>
       <a id="geolocButton" class="geoloc" href="javascript:void(0)"></a>
+    </div>
+    <div id="root">
       <h1><%= location.city %></h1>
       <div id="now-condition" class="flex-it">
-        <div class="flex-item-auto cond_img_con"><img src="<%= current_observation.icon_url %>" alt="<%= current_observation.weather %>" /></div>
+        <div class="flex-item-auto cond_img_con">
+          <img
+            src="<%= current_observation.icon_url %>"
+            alt="<%= current_observation.weather %>"
+          />
+        </div>
         <div class="flex-item-auto cond_desc_text">
-          <p><%= current_observation.temperature %><%= isNaN(current_observation.temperature) ? '' : '℃' %></p>
+          <p>
+            <%= current_observation.temperature %><%=
+            isNaN(current_observation.temperature) ? '' : '℃' %>
+          </p>
           <p><%= current_observation.weather %></p>
         </div>
       </div>
       <p><%= current_observation.observation_time %></p>
-      <% function getLevel(aqi) {
-        return aqi > 200 ? 'level_5' : aqi > 150 ? 'level_4' : aqi > 100 ? 'level_3' : aqi > 50 ? 'level_2' : 'level_1';
-      } %>
-      <p><%= forecast[0].low_temperature %> ~ <%= forecast[0].high_temperature %>℃ <%= current_observation.wind %></p>
+      <% function getLevel(aqi) { return aqi > 200 ? 'level_5' : aqi > 150 ?
+      'level_4' : aqi > 100 ? 'level_3' : aqi > 50 ? 'level_2' : 'level_1'; } %>
+      <p>
+        <%= forecast[0].low_temperature %> ~ <%= forecast[0].high_temperature
+        %>℃ <%= current_observation.wind %>
+      </p>
       <% if (current_observation.aqi) { %>
-      <p>AQI：<span class="air_quality_<%= getLevel(current_observation.aqi) %>"><%= current_observation.aqi %></span></p>
+      <p>
+        AQI：<span class="air_quality_<%= getLevel(current_observation.aqi) %>"
+          ><%= current_observation.aqi %></span
+        >
+      </p>
       <% } %>
 
       <div id="forcast-list" class="flex-it">
-        <% forecast.forEach(function(dailyData){ %>
-          <%- include('../partials/daily_forcast.ejs', {data: dailyData}); %>
-        <% }); %>
+        <% forecast.forEach(function(dailyData){ %> <%-
+        include('../partials/daily_forcast.ejs', {data: dailyData}); %> <% });
+        %>
       </div>
 
       <% if (aqi.length) { %>
@@ -37,9 +62,9 @@
           <th>AQI</th>
         </thead>
         <tbody>
-        <% aqi.forEach(function(station_data){ %>
-          <%- include('../partials/air_station.ejs', {data: station_data}); %>
-        <% }); %>
+          <% aqi.forEach(function(station_data){ %> <%-
+          include('../partials/air_station.ejs', {data: station_data}); %> <%
+          }); %>
         </tbody>
       </table>
       <% } %>

@@ -1,3 +1,12 @@
+#header {
+  background-color: black;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  justify-content: space-between;
+}
+
 #now-condition div.cond_img_con {
   text-align: right;
 }
@@ -81,9 +90,6 @@ img.cond_img_con img {
   display: inline-block;
   width: 30px;
   height: 30px;
-  position: fixed;
-  left: 5px;
-  top: 10px;
   background-image: url(/images/geolocation-icon.png);
   background-position: 0 -28px;
   background-repeat: no-repeat;
@@ -120,6 +126,6 @@ img.cond_img_con img {
   text-align: left;
 }
 
-#aqi-site-list tbody tr td span[class^=air_quality_] {
+#aqi-site-list tbody tr td span[class^="air_quality_"] {
   width: 30px;
 }
