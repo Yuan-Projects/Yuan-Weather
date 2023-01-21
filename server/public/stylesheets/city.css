@@ -17,10 +17,11 @@
 
 #now-condition > div.cond_desc_text p {
   margin: 0;
+  font-size: 1.5rem;
 }
 
 #now-condition > div.cond_desc_text p:nth-child(1) {
-  font-size: 30px;
+  font-size: 2rem;
   margin-top: 16px;
   margin-bottom: 16px;
 }

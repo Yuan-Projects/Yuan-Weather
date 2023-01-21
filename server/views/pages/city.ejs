@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
   <head>
     <%- include ('../partials/header.ejs'); -%>
   </head>
@@ -33,17 +33,17 @@
           <p><%= current_observation.weather %></p>
         </div>
       </div>
-      <p><%= current_observation.observation_time %></p>
       <% function getLevel(aqi) { return aqi > 200 ? 'level_5' : aqi > 150 ?
       'level_4' : aqi > 100 ? 'level_3' : aqi > 50 ? 'level_2' : 'level_1'; } %>
-      <p>
+      <p style="font-size: 1.5rem">
         <%= forecast[0].low_temperature %> ~ <%= forecast[0].high_temperature
-        %>℃ <%= current_observation.wind %>
+        %>℃ <%= current_observation.wind %>级
       </p>
       <% if (current_observation.aqi) { %>
       <p>
-        AQI：<span class="air_quality_<%= getLevel(current_observation.aqi) %>"
-          ><%= current_observation.aqi %></span
+        空气质量：<span
+          class="air_quality_<%= getLevel(current_observation.aqi) %>"
+          ><%= current_observation.aqi %> <%= current_observation.qlty %></span
         >
       </p>
       <% } %>
