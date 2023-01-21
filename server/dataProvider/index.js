@@ -3,6 +3,7 @@ const net = require("net");
 const utils = require("./helper");
 
 const key = process.env.WEATHER_API_APP_KEY;
+const ipGeoKey = process.env.YUANWEATHER_IP_GEO_API_KEY;
 
 const provider = require("./heweather");
 
@@ -46,7 +47,9 @@ function getCityByGeocode(latlon) {
 
 function getCityByIpAddress(IPAddress) {
   return new Promise((resolve, reject) => {
-    fetch(`https://ipapi.co/${IPAddress}/json/`)
+    //fetch(`https://ipapi.co/${IPAddress}/json/`)
+    const url = `https://api.ipgeolocation.io/ipgeo?apiKey=${ipGeoKey}&ip=${IPAddress}`;
+    fetch(url)
       .then((response) => response.json())
       .then((data) => {
         resolve(data.city);
