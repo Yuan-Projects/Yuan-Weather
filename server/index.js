@@ -14,7 +14,7 @@ app.set("view engine", "ejs");
 
 app.get("/", function (request, response) {
   const ipAddress = request.socket.remoteAddress;
-  //console.log("ipAddress:", ipAddress);
+  console.log("ipAddress:", ipAddress);
   request.params.city = ipAddress; //"beijing";
   renderCityPage(request, response);
 });
