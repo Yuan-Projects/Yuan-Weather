@@ -18,9 +18,9 @@ app.get("/", function (request, response) {
     "ipAddress:",
     ipAddress,
     " req.ip:",
-    req.ip,
+    request.ip,
     "req.headers['x-forwarded-for']:",
-    req.headers["x-forwarded-for"]
+    request.headers["x-forwarded-for"]
   );
   request.params.city = ipAddress; //"beijing";
   renderCityPage(request, response);
