@@ -22,7 +22,7 @@ app.get("/", function (request, response) {
     "req.headers['x-forwarded-for']:",
     request.headers["x-forwarded-for"]
   );
-  request.params.city = ipAddress; //"beijing";
+  request.params.city = request.ip; //"beijing";
   renderCityPage(request, response);
 });
 
