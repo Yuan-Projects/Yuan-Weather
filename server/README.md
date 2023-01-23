@@ -16,19 +16,19 @@ Add two environment variables to your local machine and/or production machine.
 
 ```bash
 ## Unix
-set WEATHER_API_APP_KEY=<YOUR_VISUALCROSSING_WEATHER_KEY>
-set AQI_API_KEY=<YOUR_AQICN_API_KEY>
+set WEATHER_API_APP_KEY=<YOUR_QWEATHER_KEY>
+set YUANWEATHER_IP_GEO_API_KEY=<YOUR_IP_GEO_API_KEY>
 
 ## Or Windows Powershell:
-$env:WEATHER_API_APP_KEY="<YOUR_VISUALCROSSING_WEATHER_KEY>"
-$env:AQI_API_KEY="<YOUR_AQICN_API_KEY>"
+$env:WEATHER_API_APP_KEY="<YOUR_QWEATHER_KEY>"
+$env:YUANWEATHER_IP_GEO_API_KEY="<YOUR_IP_GEO_API_KEY>"
 
 ## Or CMD:
-$env:WEATHER_API_APP_KEY=<YOUR_VISUALCROSSING_WEATHER_KEY>
-$env:AQI_API_KEY=<YOUR_AQICN_API_KEY>
+$env:WEATHER_API_APP_KEY=<YOUR_QWEATHER_KEY>
+$env:YUANWEATHER_IP_GEO_API_KEY=<YOUR_IP_GEO_API_KEY>
 ```
 
-This application is using [Visual Crossing Weather API](https://www.visualcrossing.com/weather-api) and [aqicn.org API](https://aqicn.org/api/), you need to obtain your keys first, and replace `<YOUR_VISUALCROSSING_WEATHER_KEY>` and `<YOUR_AQICN_API_KEY>` with your own keys.
+This application is using [QWeather](https://dev.qweather.com/docs/api/) and [IP Geolocation API](https://ipgeolocation.io/), you need to obtain your keys first, and replace `<YOUR_QWEATHER_KEY>` and `<YOUR_IP_GEO_API_KEY>` with your own keys.
 
 **Note**: You should only do this when developing and testing on your local machine. Do NOT commit it to Git or any other source control tools. When deploying to a production machine, you should set this environment variable on the service side.
 
