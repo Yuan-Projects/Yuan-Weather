@@ -1,5 +1,5 @@
 // documentation: https://dev.qweather.com/docs/api/
-const GA_TRACKING_ID = process.env.GA_TRACKING_ID || "";
+const GA_TRACKING_ID = process.env.YUANWEATHER_GA_TRACKING_ID || "";
 const API_SERVER = "https://devapi.qweather.com";
 
 async function getWeatherDataByLocation(
