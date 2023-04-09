@@ -2,6 +2,8 @@
 const GA_TRACKING_ID = process.env.YUANWEATHER_GA_TRACKING_ID || "";
 const API_SERVER = "https://devapi.qweather.com";
 
+const ICON_PREFIX = "https://cdn.jsdelivr.net/npm/qweather-icons@latest/icons/";
+
 async function getWeatherDataByLocation(
   location,
   key = "",
@@ -64,7 +66,7 @@ function adaptAPIResponse(data) {
     current_observation: {
       temperature: data.now.temp,
       weather: data.now.text,
-      icon_url: "/images/cond_icon/" + data.now.icon + ".png",
+      icon_url: ICON_PREFIX + data.now.icon + ".svg",
       wind: data.now.windDir + data.now.windScale,
       observation_time: data.now.obsTime,
     },
@@ -90,7 +92,7 @@ function adaptAPIResponse(data) {
         high_temperature: item.tempMax,
         low_temperature: item.tempMin,
         condition: item.textDay,
-        icon_url: "/images/cond_icon/" + item.iconDay + ".png",
+        icon_url: ICON_PREFIX + item.iconDay + ".svg",
       };
     });
   }

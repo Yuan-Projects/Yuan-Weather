@@ -1,5 +1,5 @@
 // Cache Storage Name. Can be consider as the version of your web site.
-const CACHE = "pages-cache-v5";
+const CACHE = "pages-cache-v6";
 
 // Things that would make your site entirely non-functional if they failed to be fetched, things an equivalent native-app would make part of the initial download.
 // Ideal for: CSS, images, fonts, JS, templates… basically anything you'd consider static to that "version" of your site.
@@ -25,7 +25,7 @@ self.addEventListener("install", (event) => {
     caches.open(CACHE).then((cache) => {
       // try to cache frequently used file,
       // but they might not be cached if service worker finished handling events.
-      cache.addAll(frequentlyUsedFiles);
+      //cache.addAll(frequentlyUsedFiles);
       // cache dependecy files, if any of the resources fail to be fetched, the `cache.addAll()` call rejects.
       return cache.addAll(filesToCache);
     })
